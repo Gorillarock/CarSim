@@ -3,6 +3,8 @@ Interfaces and Singletons
 
 ## Details for Assignment
 
+Create a new branch for the following features.  Then make a PR into master branch when complete.
+
 1) Organize the code into multiple files.
 2) Create single gear function which sets wheels rpm to half of motor rpm ( 2(motor):1(wheels) )  (Assume wheels are not effected by inertia)
 
