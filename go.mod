@@ -1,3 +1,3 @@
-module test_code
+module CarSim
 
-go 1.17
+go 1.20
