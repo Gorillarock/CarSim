@@ -4,6 +4,7 @@ import (
 	"CarSim/car"
 	"CarSim/parts"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 	motor := car.MotorManipulator()
 	seatBelt := car.SeatbeltManipulator()
 
-	gearbox :=car.GearboxManipulator()
+	gearbox := car.GearboxManipulator()
 	gearbox.SetMotor(motor)
 	gearbox.SetWheels(wheels)
 
@@ -40,8 +41,27 @@ func main() {
 	motor.SetRPM(900, seatBelt)
 	gearbox.SetGear("2:1")
 	gearbox.UpdateWheelsRPM()
-	
 	car.Print()
-	
 
+	maxReachedChan := make(chan bool)
+
+	go increaseSpeed(motor,seatBelt, 1, 7000, maxReachedChan)
+
+	<-maxReachedChan
+
+	fmt.Println("** Increased RPM until reaches 7000**")
+	car.Print()
+}
+
+func increaseSpeed(motor parts.MotorManipulator,
+	seatBelt parts.SeatbeltManipulator,
+	increment, max int,
+	maxReached chan bool) {
+	for rpm := motor.GetRPM(); rpm <= max; rpm += increment {
+		motor.SetRPM(rpm, seatBelt)
+		if rpm >= max {
+			maxReached <- true
+		}
+		time.Sleep(time.Millisecond)
+	}
 }
