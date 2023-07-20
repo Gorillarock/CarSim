@@ -31,3 +31,9 @@ type SeatbeltManipulator interface {
 	GetState() SeatbeltState
 	Print()
 }
+type GearboxManipulator interface {
+	SetMotor(motor MotorManipulator)
+	SetWheels(wheels WheelsManipulator)
+	SetGear(gear string) error
+	UpdateWheelsRPM()
+}

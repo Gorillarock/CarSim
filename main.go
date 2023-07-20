@@ -13,6 +13,10 @@ func main() {
 	motor := car.MotorManipulator()
 	seatBelt := car.SeatbeltManipulator()
 
+	gearbox :=car.GearboxManipulator()
+	gearbox.SetMotor(motor)
+	gearbox.SetWheels(wheels)
+
 	car.Print()
 
 	fmt.Println("Turning On Motor")
@@ -24,9 +28,20 @@ func main() {
 	door.SetLocked(true)
 	motor.SetOn(true)
 	seatBelt.SetState(parts.SeatbeltStateEngauged)
+	fmt.Println("** Increasing RPM directly to motor**")
 	motor.SetRPM(100, seatBelt)
 	motor.SetWheelsRPM(wheels)
-
 	car.Print()
+	fmt.Println("** Change Gear**")
+	gearbox.SetGear("4:1")
+	gearbox.UpdateWheelsRPM()
+	car.Print()
+	fmt.Println("** Change Gear**")
+	motor.SetRPM(900, seatBelt)
+	gearbox.SetGear("2:1")
+	gearbox.UpdateWheelsRPM()
+	
+	car.Print()
+	
 
 }

@@ -11,6 +11,7 @@ type Car struct {
 	door     *parts.Door
 	motor    *parts.Motor
 	seatbelt *parts.Seatbelt
+	gearbox  *parts.Gearbox
 }
 
 func (c *Car) WheelManipulator() parts.WheelsManipulator {
@@ -34,11 +35,22 @@ func (c *Car) MotorManipulator() parts.MotorManipulator {
 	return c.motor
 }
 
-func (c *Car) SeatbeltManipulator() parts.SeatbeltManipulator{
+func (c *Car) SeatbeltManipulator() parts.SeatbeltManipulator {
 	if c.seatbelt == nil {
 		c.seatbelt = &parts.Seatbelt{}
 	}
 	return c.seatbelt
+}
+
+func (c *Car) GearboxManipulator() parts.GearboxManipulator {
+	if c.gearbox == nil {
+		motor := c.MotorManipulator()
+		wheels := c.WheelManipulator()
+		return &parts.Gearbox{
+			Motor : motor,
+			Wheels: wheels,
+	}}
+	return c.gearbox
 }
 
 func (c *Car) Print() {
