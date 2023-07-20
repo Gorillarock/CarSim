@@ -27,6 +27,12 @@ func (m *Motor) GetRPM() int {
 	return m.Rpm
 }
 
+func (m *Motor) SetWheelsRPM(wm WheelsManipulator) error {
+	wheelRpm :=m.GetRPM()/2
+
+	return wm.SetRPM(wheelRpm)
+}
+
 func (m *Motor) Print() {
 	fmt.Printf("Motor: \n\tOn: %t, \n\tRPM: %d\n", m.On, m.Rpm)
 }

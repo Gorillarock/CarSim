@@ -13,6 +13,7 @@ type MotorManipulator interface {
 	SetRPM(int) error
 	IsOn() bool
 	GetRPM() int
+	SetWheelsRPM(wm WheelsManipulator) error
 	Print()
 }
 
