@@ -15,12 +15,14 @@ func (m *Motor) IsOn() bool {
 	return m.On
 }
 
-func (m *Motor) SetRPM(rpm int) error {
+func (m *Motor) SetRPM(rpm int, sb SeatbeltManipulator) error {
 	if rpm < 0 {
 		return fmt.Errorf("Negative RPM")
 	}
-	m.Rpm = rpm
-	return nil
+	if rpm > 0 && sb.GetState() == SeatbeltStateEngauged {
+		m.Rpm = rpm
+	}
+	return fmt.Errorf("Seatbelt must be engauged to increase RPM")
 }
 
 func (m *Motor) GetRPM() int {

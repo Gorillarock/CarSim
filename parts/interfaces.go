@@ -10,7 +10,7 @@ type DoorManipulator interface {
 
 type MotorManipulator interface {
 	SetOn(bool)
-	SetRPM(int) error
+	SetRPM(rpm int, sb SeatbeltManipulator) error
 	IsOn() bool
 	GetRPM() int
 	SetWheelsRPM(wm WheelsManipulator) error
@@ -23,5 +23,11 @@ type WheelsManipulator interface {
 	GetRPM() int
 	GetSize() int
 	GetCount() int
+	Print()
+}
+
+type SeatbeltManipulator interface {
+	SetState(state SeatbeltState) error
+	GetState() SeatbeltState
 	Print()
 }

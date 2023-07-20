@@ -7,9 +7,10 @@ import (
 )
 
 type Car struct {
-	wheels *parts.Wheels
-	door   *parts.Door
-	motor  *parts.Motor
+	wheels   *parts.Wheels
+	door     *parts.Door
+	motor    *parts.Motor
+	seatbelt *parts.Seatbelt
 }
 
 func (c *Car) WheelManipulator() parts.WheelsManipulator {
@@ -33,6 +34,13 @@ func (c *Car) MotorManipulator() parts.MotorManipulator {
 	return c.motor
 }
 
+func (c *Car) SeatbeltManipulator() parts.SeatbeltManipulator{
+	if c.seatbelt == nil {
+		c.seatbelt = &parts.Seatbelt{}
+	}
+	return c.seatbelt
+}
+
 func (c *Car) Print() {
 	fmt.Printf("Car: \n")
 	w := c.WheelManipulator()
@@ -41,4 +49,6 @@ func (c *Car) Print() {
 	d.Print()
 	m := c.MotorManipulator()
 	m.Print()
+	s := c.SeatbeltManipulator()
+	s.Print()
 }

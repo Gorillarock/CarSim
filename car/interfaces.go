@@ -6,5 +6,6 @@ type CarManipulator interface {
 	WheelManiputlator() parts.WheelsManipulator
 	DoorManipulator() parts.DoorManipulator
 	MotorManipulator() parts.MotorManipulator
+	SeatbeltManipulator() parts.SeatbeltManipulator
 	Print()
 }

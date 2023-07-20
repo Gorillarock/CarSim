@@ -2,6 +2,7 @@ package main
 
 import (
 	"CarSim/car"
+	"CarSim/parts"
 	"fmt"
 )
 
@@ -10,6 +11,7 @@ func main() {
 	wheels := car.WheelManipulator()
 	door := car.DoorManipulator()
 	motor := car.MotorManipulator()
+	seatBelt := car.SeatbeltManipulator()
 
 	car.Print()
 
@@ -21,7 +23,8 @@ func main() {
 	door.SetOpen(false)
 	door.SetLocked(true)
 	motor.SetOn(true)
-	motor.SetRPM(100)
+	seatBelt.SetState(parts.SeatbeltStateEngauged)
+	motor.SetRPM(100, seatBelt)
 	motor.SetWheelsRPM(wheels)
 
 	car.Print()
