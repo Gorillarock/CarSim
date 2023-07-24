@@ -33,6 +33,6 @@ type SeatbeltManipulator interface {
 }
 type GearboxManipulator interface {
 	NewGearbox(motor MotorManipulator, wheels WheelsManipulator) *Gearbox
-	SetGear(gear string) error
+	SetGear(gear int) error
 	UpdateWheelsRPM()
 }

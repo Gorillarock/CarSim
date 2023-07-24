@@ -5,14 +5,14 @@ import "fmt"
 type Gearbox struct {
 	Motor       MotorManipulator
 	Wheels      WheelsManipulator
-	CurrentGear string
+	CurrentGear int
 }
 
 func (g *Gearbox) NewGearbox(motor MotorManipulator, wheels WheelsManipulator) *Gearbox {
 	return &Gearbox{
 		Motor:       motor,
 		Wheels:      wheels,
-		CurrentGear: "2:1",
+		CurrentGear: 2,
 	}
 }
 
@@ -20,26 +20,14 @@ func (g *Gearbox) UpdateWheelsRPM() {
 	if g.Motor == nil || g.Wheels == nil {
 		return
 	}
-
 	motorRPM := g.Motor.GetRPM()
-	gearRatio := 0
-	if g.CurrentGear == "2:1" {
-		gearRatio = 2
-	} else if g.CurrentGear == "4:1" {
-		gearRatio = 4
-	}
-
-	wheelsRPM := motorRPM / gearRatio
+	wheelsRPM := motorRPM / g.CurrentGear
 	g.Wheels.SetRPM(wheelsRPM)
 }
 
-func (g *Gearbox) SetGear(gear string) error {
-	switch gear {
-	case "2:1", "4:1":
+func (g *Gearbox) SetGear(gear int) error {
+	if gear > 0 {
 		g.CurrentGear = gear
-	default:
-		return fmt.Errorf("invalid gear, only 2:1 and 4:1")
-	}
-
-	return nil
+	} 
+	return fmt.Errorf("invalid gear, must be greater than zero")
 }
