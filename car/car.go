@@ -44,12 +44,8 @@ func (c *Car) SeatbeltManipulator() parts.SeatbeltManipulator {
 
 func (c *Car) GearboxManipulator() parts.GearboxManipulator {
 	if c.gearbox == nil {
-		motor := c.MotorManipulator()
-		wheels := c.WheelManipulator()
-		return &parts.Gearbox{
-			Motor : motor,
-			Wheels: wheels,
-	}}
+		return c.gearbox.NewGearbox(c.motor, c.wheels)
+	}
 	return c.gearbox
 }
 

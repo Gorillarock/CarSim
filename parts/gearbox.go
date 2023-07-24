@@ -8,12 +8,12 @@ type Gearbox struct {
 	CurrentGear string
 }
 
-func (g *Gearbox) SetMotor(motor MotorManipulator) {
-	g.Motor = motor
-}
-
-func (g *Gearbox) SetWheels(wheels WheelsManipulator) {
-	g.Wheels = wheels
+func (g *Gearbox) NewGearbox(motor MotorManipulator, wheels WheelsManipulator) *Gearbox {
+	return &Gearbox{
+		Motor:       motor,
+		Wheels:      wheels,
+		CurrentGear: "2:1",
+	}
 }
 
 func (g *Gearbox) UpdateWheelsRPM() {

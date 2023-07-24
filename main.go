@@ -15,8 +15,6 @@ func main() {
 	seatBelt := car.SeatbeltManipulator()
 
 	gearbox := car.GearboxManipulator()
-	gearbox.SetMotor(motor)
-	gearbox.SetWheels(wheels)
 
 	car.Print()
 
