@@ -14,9 +14,9 @@ Create a new branch for the following features.  Then make a PR into master bran
 4) Add seatbelt functionality to car.
 	Requirements for Seatbelt:
 		a) Only needs 1 seatbelt for the vehicle (assume it is for the driver).
-		b) seatbelt can be engauged or disengauged (2 states only).
-		c) seatbelt defaults to disengauged
-		d) seabelt must be engauged before motor rpm can be increased beyond 0.
+		b) seatbelt can be engaged or disengaged (2 states only).
+		c) seatbelt defaults to disengaged
+		d) seabelt must be engaged before motor rpm can be increased beyond 0.
 
 5) Create Gearbox which allows for at least 2 different gears. (gear is the ratio between motor rpm and wheels rpm | example: one gear may be "2:1" and another may be "4:1")
 	Requirements for Gearbox:
