@@ -31,3 +31,7 @@ func (g *Gearbox) SetGear(gear int) error {
 	} 
 	return fmt.Errorf("invalid gear, must be greater than zero")
 }
+
+func (g *Gearbox)GetGear() int {
+	return g.CurrentGear
+}
