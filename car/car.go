@@ -46,6 +46,18 @@ func (c *Car) MotorManipulator() motor.MotorManipulator {
 	return c.motor
 }
 
+func (c *Car) SetMotorAndWheels(motorRpm int) error {
+	err := c.MotorManipulator().SetRPM(motorRpm)
+	if err != nil {
+		return err
+	}
+	err = c.WheelManipulator().SetRPM(motorRpm / 2)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (c *Car) Print() {
 	fmt.Printf("Car: \n")
 	w := c.WheelManipulator()
