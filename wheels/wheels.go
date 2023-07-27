@@ -2,6 +2,7 @@ package wheels
 
 import (
 	"fmt"
+	"test_code/motor"
 )
 
 type Wheels struct {
@@ -16,6 +17,7 @@ type WheelsManipulator interface {
 	GetRPM() int
 	GetSize() int
 	GetCount() int
+	SetHalfMotorRPM(motor.MotorManipulator) error
 	Print()
 }
 
@@ -24,6 +26,16 @@ func (w *Wheels) SetRPM(rpm int) error {
 		return fmt.Errorf("Negative RPM")
 	}
 	w.Rpm = rpm
+	return nil
+}
+
+func (w *Wheels) SetHalfMotorRPM(m motor.MotorManipulator) error {
+	motorRpm := m.GetRPM()
+	rpm := int(motorRpm / 2)
+	err := w.SetRPM(rpm)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
