@@ -23,9 +23,14 @@ func main() {
 	door.SetLocked(true)
 	motor.SetOn(true)
 	seatbelt.SetEngaged(true)
-
-	car.SetMotorAndWheels(4)
+	car.SetMotorRPM(4)
 
 	car.Print()
+	fmt.Println("**  Gear change **")
+	car.ChangeGear(4)
+	car.Print()
 
+	fmt.Println("** Accelerate **")
+	car.SetMotorRPM(8)
+	car.Print()
 }

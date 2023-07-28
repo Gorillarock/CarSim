@@ -3,6 +3,7 @@ package car
 import (
 	"fmt"
 	"test_code/doors"
+	"test_code/gearbox"
 	"test_code/motor"
 	"test_code/seatbelt"
 	"test_code/wheels"
@@ -11,6 +12,7 @@ import (
 const (
 	wheelCount       = 4
 	defaultWheelSize = 20
+	defaultGear      = 2
 )
 
 type Car struct {
@@ -18,6 +20,7 @@ type Car struct {
 	door     *doors.Door
 	motor    *motor.Motor
 	seatbelt *seatbelt.Seatbelt
+	gearbox  *gearbox.Gearbox
 }
 
 type CarManipulator interface {
@@ -25,6 +28,7 @@ type CarManipulator interface {
 	DoorManipulator() doors.DoorManipulator
 	MotorManipulator() motor.MotorManipulator
 	SeatbeltManipulator() seatbelt.SeatbeltManipulator
+	GearboxManipulator() gearbox.Gearbox
 	Print()
 }
 
@@ -58,7 +62,16 @@ func (c *Car) MotorManipulator() motor.MotorManipulator {
 	return c.motor
 }
 
-func (c *Car) setMotorRPM(motorRpm int) error {
+func (c *Car) GearboxManipulator() gearbox.GearboxManipulator {
+	if c.gearbox == nil {
+		c.gearbox = &gearbox.Gearbox{
+			Gear: defaultGear,
+		}
+	}
+	return c.gearbox
+}
+
+func (c *Car) SetMotorRPM(motorRpm int) error {
 	if !c.seatbelt.IsEngaged() {
 		return fmt.Errorf("seabelt must be engaged before motor rpm can be increased")
 	}
@@ -66,14 +79,24 @@ func (c *Car) setMotorRPM(motorRpm int) error {
 	if err != nil {
 		return err
 	}
-	return nil
-}
-func (c *Car) SetMotorAndWheels(motorRpm int) error {
-	err := c.setMotorRPM(motorRpm)
+	err = c.SetWheels()
 	if err != nil {
 		return err
 	}
-	err = c.WheelManipulator().SetRPM(motorRpm / 2)
+	return nil
+}
+
+func (c *Car) ChangeGear(gear int) {
+	c.GearboxManipulator().SetGear(gear)
+	c.SetWheels()
+}
+
+func (c *Car) SetWheels() error {
+	motorRpm := c.MotorManipulator().GetRPM()
+	// check the gearbox relation
+	gear := c.GearboxManipulator().GetGear()
+
+	err := c.WheelManipulator().SetRPM(motorRpm / gear)
 	if err != nil {
 		return err
 	}
@@ -90,4 +113,6 @@ func (c *Car) Print() {
 	m.Print()
 	s := c.SeatbeltManipulator()
 	s.Print()
+	g := c.GearboxManipulator()
+	g.Print()
 }
