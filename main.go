@@ -7,9 +7,10 @@ import (
 
 func main() {
 	car := &car.Car{}
-	//wheels := car.WheelManipulator()
+
 	door := car.DoorManipulator()
 	motor := car.MotorManipulator()
+	seatbelt := car.SeatbeltManipulator()
 
 	car.Print()
 
@@ -21,7 +22,8 @@ func main() {
 	door.SetOpen(false)
 	door.SetLocked(true)
 	motor.SetOn(true)
-	motor.SetRPM(2)
+	seatbelt.SetEngaged(true)
+
 	car.SetMotorAndWheels(4)
 
 	car.Print()
