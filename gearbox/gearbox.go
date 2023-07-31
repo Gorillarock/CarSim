@@ -2,13 +2,6 @@ package gearbox
 
 import "fmt"
 
-const (
-	first = iota + 1
-	second
-	third
-	fourth
-)
-
 type Gearbox struct {
 	Gear int
 }
