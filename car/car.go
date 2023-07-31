@@ -72,9 +72,12 @@ func (c *Car) GearboxManipulator() gearbox.GearboxManipulator {
 }
 
 func (c *Car) SetMotorRPM(motorRpm int) error {
-	if !c.seatbelt.IsEngaged() {
+	currentRpm := c.MotorManipulator().GetRPM()
+
+	if motorRpm > currentRpm && !c.seatbelt.IsEngaged() {
 		return fmt.Errorf("seabelt must be engaged before motor rpm can be increased")
 	}
+
 	err := c.MotorManipulator().SetRPM(motorRpm)
 	if err != nil {
 		return err
