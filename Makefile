@@ -13,4 +13,5 @@ run: ## Run container on port configured in `config.env`
 	docker run -i -t --rm --env-file=./config.env --name="$(APP_NAME)" $(APP_NAME)
 
 test:
+	go clean -testcache
 	go test ./...
