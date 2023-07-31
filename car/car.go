@@ -79,7 +79,7 @@ func (c *Car) SetMotorRPM(motorRpm int) error {
 	if err != nil {
 		return err
 	}
-	err = c.SetWheels()
+	err = c.UpdateWheelsSpeed()
 	if err != nil {
 		return err
 	}
@@ -88,10 +88,10 @@ func (c *Car) SetMotorRPM(motorRpm int) error {
 
 func (c *Car) ChangeGear(gear int) {
 	c.GearboxManipulator().SetGear(gear)
-	c.SetWheels()
+	c.UpdateWheelsSpeed()
 }
 
-func (c *Car) SetWheels() error {
+func (c *Car) UpdateWheelsSpeed() error {
 	motorRpm := c.MotorManipulator().GetRPM()
 	// check the gearbox relation
 	gear := c.GearboxManipulator().GetGear()
